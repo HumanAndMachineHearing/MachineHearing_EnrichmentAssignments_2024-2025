@@ -1,5 +1,3 @@
-# MachineHearing_PracticalAssignment_2024-2025
-
 # Introduction to the Practical Assignments
 <p align = "justify">This repository contains the assignments and code for the Practical Assignment of the Course SOW-MKI85 Machine Hearing 2023-2024.
 
