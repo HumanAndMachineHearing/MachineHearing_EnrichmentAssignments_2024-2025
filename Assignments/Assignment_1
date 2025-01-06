@@ -1,0 +1,455 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPxvAs+bfZdDtEa7/9HVu3n",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/HumanAndMachineHearing/Practical_2023/blob/main/Assignment_1_Students.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Programming Assignment 1. Exploring soundwaves and the ESC-50 dataset**\n",
+        "\n",
+        "# 1. Introduction\n",
+        "\n",
+        "In this session, you will explore properties of soundwaves, calculate and visualize spectral and temporal properties of sounds, and compare the properties of sounds from various categories in the ESC-50 dataset. All required information to complete this assignment is included in this notebook and the code can be implemented within this notebook.\n",
+        "\n",
+        "\n",
+        "For more information about audio feature extraction with Torchaudio, look at: https://pytorch.org/audio/stable/tutorials/audio_feature_extractions_tutorial.html\n",
+        "\n",
+        "**Practical Report**\n",
+        "<br>\n",
+        "For this session, you are expected to add the output of and answers to the exercises as defined in the notebook to the Practical Report. A link to the templates for the practical reports can be found in the Readme file."
+      ],
+      "metadata": {
+        "id": "Tug9-mKcfDaV"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "#Preparation\n",
+        "\n",
+        "Before embarking on the exercises, import the libraries that are essential for this excerise."
+      ],
+      "metadata": {
+        "id": "gMOX3uEl_ker"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "50R4w2QNfCn3"
+      },
+      "outputs": [],
+      "source": [
+        "# Machine learning framework\n",
+        "import torch\n",
+        "\n",
+        "# Library for audio and signal processing with PyTorch\n",
+        "import torchaudio\n",
+        "import torchaudio.transforms as T # for common audio processings and feature extractions\n",
+        "\n",
+        "# For manipulating directory paths\n",
+        "import os\n",
+        "\n",
+        "# For working with datasets\n",
+        "import pandas as pd\n",
+        "\n",
+        "# Plotting library\n",
+        "import matplotlib.pyplot as plt\n",
+        "# To embed plots within the notebook\n",
+        "%matplotlib inline\n",
+        "\n",
+        "# Scientific and vector computation for Python\n",
+        "import numpy as np\n",
+        "\n",
+        "# API for display tools in Python\n",
+        "from IPython.display import Audio, display # display for playing audio"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 2. The ESC-50 database\n",
+        "\n",
+        "The dataset that we use for these Practical Assignments is the Environmental Sound Classification 50 (ESC-50) dataset [1]. This dataset consists of sound clips of 5 second duration in 50 semantical classes, which can be organized in five overarching sound categories: 'Natural sound scapes & Water sounds', 'Human, non-speech sounds', 'Interior/Domestic sounds', 'Exterior/Urban noises'. More information about the dataset can be found [here](https://github.com/karolpiczak/ESC-50).  \n",
+        "\n",
+        "The dataset can be found on Brightspace. Add the dataset to your Google Drive.\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "j8JzAomSUNfe"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 3. Exploring sound clips\n",
+        "\n",
+        "To explore the properties of sounds from different categories, you will select and analyze some examples within each category. Below are some pre-defined examples but you are encouraged to have a look at the metadata file, listen to some sound clips and select your own examples.\n"
+      ],
+      "metadata": {
+        "id": "-ZJmLO-Didrp"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Mount Google Drive\n",
+        "from google.colab import drive\n",
+        "drive.mount('/content/drive')\n",
+        "\n",
+        "# Define file path to folder with .wav files\n",
+        "filepath_snds = '/content/drive/MyDrive/soundclass_resnet18/audio'\n"
+      ],
+      "metadata": {
+        "id": "tC9gPKVcGp7_"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Define a list of example files\n",
+        "snds = ['1-9886-A-49.wav', # saw\n",
+        "        '1-11687-A-47.wav', # airplane\n",
+        "        '1-13572-A-46.wav', # church bell\n",
+        "        '1-22694-A-20.wav', # baby crying\n",
+        "        '1-43382-A-1.wav'] # rooster\n",
+        "\n",
+        "# Define an index for one of the examples in the list 'snds'\n",
+        "snd_idx = 4;"
+      ],
+      "metadata": {
+        "id": "fsuCFi8gVo_l"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##Listening to sound clips\n",
+        "As a first step, listen to the sound clips. Select different sound clips by changing the index 'snd_idx' and/or the list of example sound clips 'snds'.\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "1nMufXsUFpmp"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Load sound using torchaudio\n",
+        "waveform, sample_rate = torchaudio.load(os.path.join(filepath_snds,snds[snd_idx])) # returns a Tensor 'waveform'\n",
+        "\n",
+        "# Play sound\n",
+        "Audio(waveform.numpy(),rate = sample_rate) # note that the tensor 'waveform' has to be converted to a numpy array"
+      ],
+      "metadata": {
+        "id": "Tsj5m2BvHp_v"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##Plotting soundwaves\n",
+        "\n",
+        "You start by exploring the time representation of sounds.\n",
+        "\n",
+        "**Exercise 1.1:**\n",
+        "<br>\n",
+        "Create plots of the soundwaves in the time domain. Select different sound clips by changing the index 'snd_idx' and/or the list of example sound clips 'snds'. Add the plots to your Practical Report.\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "swGzZn-JHriI"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Define time-axis\n",
+        "time_axis = torch.arange(0,waveform.shape[1])/sample_rate # define array of time in seconds\n",
+        "\n",
+        "# Plot waveform\n",
+        "fig = plt.figure()\n",
+        "plt.plot(time_axis,waveform[0]) # plot waveform\n",
+        "plt.grid(True) # turn on grid\n",
+        "plt.xlim([time_axis[0], time_axis[len(time_axis)-1]]) # constrain x-axis to time axis\n",
+        "plt.title('Type of sound / name sound') # add a title\n",
+        "plt.xlabel('Time (seconds)') # add axis labels\n",
+        "plt.ylabel('Amplitude (a.u.)')"
+      ],
+      "metadata": {
+        "id": "uJAIud0QPenJ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 4. Frequency spectrum\n",
+        "You will now explore the frequency content of sounds. As you have learnt during the lecture, information about the spectral properties of a sound clip can be derived by calculating a Fourier Transform of a (portion of) the sound clip.\n",
+        "\n",
+        "Select a part of the sound clip(s) that you would like to analyze by using a Hanning window or another suitable window function.\n",
+        "\n",
+        "**Exercise 1.2:**\n",
+        "<br>\n",
+        "(A) Create a plot of the window function that you selected and include this in your report. Describe what artifacts in the spectrum are avoided by using this window function.\n",
+        "<br>\n",
+        "(B) Multiply the window function with different parts of a sound wave and/or different sound waves and include the plots in your report. Use the plots to describe what the effect of the window function is on a signal.\n",
+        "\n",
+        "##Hanning window\n"
+      ],
+      "metadata": {
+        "id": "fnK2UCDXnaKi"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Define duration corresponding to 250 milliseconds\n",
+        "hann_n_samples = sample_rate/4 # duration of the window defined as a function of sampling rate\n",
+        "hann_time_axis = torch.arange(0,hann_n_samples)/sample_rate # time axis for plotting\n",
+        "\n",
+        "# Construct a window function, e.g. a Hanning window\n",
+        "hann_win = np.hanning(hann_n_samples)"
+      ],
+      "metadata": {
+        "id": "0p8-RQsQpLO6"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Add code here"
+      ],
+      "metadata": {
+        "id": "qPQYSY5_N2LB"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##Fourier transform\n",
+        "Extract the magnitude spectrum of the selected parts of one or more sound clips.\n",
+        "\n",
+        "**Exercise 1.3:**\n",
+        "<br>\n",
+        "Plot the frequency spectra of different sections of a single sound and/or of different sound clips. Describe what information the frequency spectra convey and compare the spectral content between the frequency spectrum of different (sections of) sound clips. Use terms such as 'fundamental frequency' and 'harmonics'.\n"
+      ],
+      "metadata": {
+        "id": "qgZr1Whe2BAN"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Convert torch tensor to numpy array\n",
+        "waveform_np = waveform.numpy()\n",
+        "\n",
+        "# Calculate Fourier transform\n",
+        "snd_fft = np.abs(np.fft.fft(waveform_np)) # compute FFT and take absolute\n",
+        "freq_fft = np.fft.fftfreq(waveform_np.shape[-1]) # extract frequency bins of FFT\n",
+        "\n",
+        "# Define frequency axis\n",
+        "len_spec = int(np.shape(snd_fft)[1]/2) # define half of the double sided spectrum\n",
+        "snd_fft = np.abs(np.squeeze(snd_fft.real)[:len_spec-1])# take only real part and discard half of the spectrum\n",
+        "freq_fft = freq_fft[:len_spec-1] # frequency vector\n",
+        "freqs = np.abs(freq_fft*sample_rate) # convert frequency vector\n",
+        "\n",
+        "# Plot spectrum\n",
+        "fig = plt.figure()\n",
+        "plt.plot(freqs,snd_fft)\n",
+        "plt.xlim([freqs[0], freqs[len(freqs)-1]]) # constrain x-axis to time axis\n",
+        "plt.title('Frequency spectrum') # add a title\n",
+        "plt.xlabel('Frequency (Hz)') # add axis labels\n",
+        "plt.ylabel('Amplitude');\n"
+      ],
+      "metadata": {
+        "id": "hHkSBlvQ2GBj"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 5. Spectrogram\n",
+        "As a next step, you will create time-frequency representations of the sound clips by using the Short-Time Fourier Transform (STFT) to calculate spectrograms.  \n",
+        "\n",
+        "**Exercise 1.4:**\n",
+        "<br> Implement the STFT for three or more sound clips. Explore how the spectrogram parameters (n_fft, window_length, hop_length) affect the temporal and spectral resolution of the resulting spectrograms. Answer the following questions and illustrate your report with figures.\n",
+        "<br>\n",
+        "(A) What happens when you increase/decrease the number of frequency bins?\n",
+        "<br>\n",
+        "(B) What happens when you increase/decrease the window size?\n",
+        "<br>\n",
+        "(C) What happens when you increase/decrease the hop length?\n",
+        "\n",
+        "\n",
+        "## Power spectrogram"
+      ],
+      "metadata": {
+        "id": "xrGyj-LgBp-q"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        " # Specify parameters\n",
+        "sgram_n_fft = 1024 # size of FFT, creates n_fft/2 + 1 frequency bins; i.e. n_fft determines the resolution of the frequency axis\n",
+        "sgram_win_length = 512 # window size; default = n_fft; determines the resolution of the time axis\n",
+        "sgram_hop_length = 256 # length of hop between STFT windows; default = win_legth / 2; # determines the resolution of the time axis\n",
+        "\n",
+        "# Define spectrogram transform\n",
+        "spectrogram = T.Spectrogram(\n",
+        "    n_fft = sgram_n_fft,\n",
+        "    win_length = sgram_win_length,\n",
+        "    hop_length = sgram_hop_length,\n",
+        "    center = True,\n",
+        "    pad_mode = \"reflect\",\n",
+        "    power = 2, # 1 for magnitude spectrogram; 2 for power spectrogram\n",
+        ")\n",
+        "\n",
+        "# Calculate power spectrogram\n",
+        "spectrogram_snd = spectrogram(waveform)\n",
+        "# calculate frequency axis\n",
+        "spectrogram_freqs = np.arange(0,np.shape(spectrogram_snd)[1])*sample_rate/sgram_n_fft\n",
+        "# define time axis\n",
+        "spectrogram_time_axis = np.round(np.arange(0,np.shape(spectrogram_snd)[2])*((np.shape(waveform)[1]/np.shape(spectrogram_snd)[2])/sample_rate),2)\n",
+        "\n",
+        "# Plot magnitude or power spectrogram\n",
+        "fig = plt.figure(figsize=(10,6))\n",
+        "plt.title('Name of sound')\n",
+        "plt.ylabel('Frequency (Hz)')\n",
+        "plt.xlabel('Time (seconds)')\n",
+        "plt.imshow(np.squeeze(spectrogram_snd), origin = 'lower', cmap = 'jet', vmin = 0, vmax = 100)\n",
+        "plt.colorbar(shrink = 0.8, label = 'Power') # add colorbar of same size as original plot\n",
+        "plt.yticks([0, 100, 200, 300, 400, 500], # change if needed after changing parameters\n",
+        "            [int(spectrogram_freqs[0]),\n",
+        "             int(spectrogram_freqs[100]),\n",
+        "             int(spectrogram_freqs[200]),\n",
+        "             int(spectrogram_freqs[300]),\n",
+        "             int(spectrogram_freqs[400]),\n",
+        "             int(spectrogram_freqs[500])]);\n",
+        "plt.xticks([0,100,200,300,400,500,600,700,800, 861], # change if needed after changing parameters\n",
+        "            [spectrogram_time_axis[0],\n",
+        "             spectrogram_time_axis[100],\n",
+        "             spectrogram_time_axis[200],\n",
+        "             spectrogram_time_axis[300],\n",
+        "             spectrogram_time_axis[400],\n",
+        "             spectrogram_time_axis[500],\n",
+        "             spectrogram_time_axis[600],\n",
+        "             spectrogram_time_axis[700],\n",
+        "             spectrogram_time_axis[800],\n",
+        "             spectrogram_time_axis[861]]);\n"
+      ],
+      "metadata": {
+        "id": "XbGXd9boDXJz"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Power spectrogram in decibel unit\n",
+        "\n",
+        "To conclude, you will change the unit of the power spectrogram to decibel (dB). Note that the reference value to convert power to decibel is 0 dB (i.e. the reference value used is 1, which gives log10(1) = 0).\n",
+        "\n",
+        "**Exercise 1.5:**\n",
+        "<br>\n",
+        "Plot several spectrograms in decibel units and compare to the power spectrograms that you generated before. Describe differences and illustrate with plots."
+      ],
+      "metadata": {
+        "id": "nm9F6JR9B097"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Convert power spectrogram to decibel\n",
+        "offset_val = 1e-10 # add small offset to avoid taking logarithm of zero\n",
+        "spectrogram_snd_db = 10 * np.log10(spectrogram_snd+offset_val) # calculate dB from power\n",
+        "\n",
+        "# Plot spectrogram in decibel\n",
+        "fig = plt.figure(figsize=(10,6))\n",
+        "plt.title('Spectrogram (decibel) ' + snds[snd_idx])\n",
+        "plt.ylabel('Frequency (Hz)')\n",
+        "plt.xlabel('Time (seconds)')\n",
+        "plt.imshow(np.squeeze(spectrogram_snd_db), origin = 'lower', cmap = 'jet', vmin = -20, vmax = 20)\n",
+        "plt.colorbar(shrink = 0.8, label = 'Decibel') # add colorbar of same size as original plot\n",
+        "plt.yticks([0, 100, 200, 300, 400, 500], # change if needed after changing parameters\n",
+        "            [int(spectrogram_freqs[0]),\n",
+        "             int(spectrogram_freqs[100]),\n",
+        "             int(spectrogram_freqs[200]),\n",
+        "             int(spectrogram_freqs[300]),\n",
+        "             int(spectrogram_freqs[400]),\n",
+        "             int(spectrogram_freqs[500])]);\n",
+        "plt.xticks([0,100,200,300,400,500,600,700,800, 861], # change if needed after changing parameters\n",
+        "            [spectrogram_time_axis[0],\n",
+        "             spectrogram_time_axis[100],\n",
+        "             spectrogram_time_axis[200],\n",
+        "             spectrogram_time_axis[300],\n",
+        "             spectrogram_time_axis[400],\n",
+        "             spectrogram_time_axis[500],\n",
+        "             spectrogram_time_axis[600],\n",
+        "             spectrogram_time_axis[700],\n",
+        "             spectrogram_time_axis[800],\n",
+        "             spectrogram_time_axis[861]]);\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "yG3-FokxBz_-"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# References\n",
+        "[1] K. J. Piczak. ESC: Dataset for Environmental Sound Classification. Proceedings of the 23rd Annual ACM Conference on Multimedia, Brisbane, Australia, 2015."
+      ],
+      "metadata": {
+        "id": "jFxczsqAEFSd"
+      }
+    }
+  ]
+}
