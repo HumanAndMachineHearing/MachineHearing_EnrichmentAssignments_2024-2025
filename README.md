@@ -1,12 +1,12 @@
-# Introduction to the Practical Assignments
-<p align = "justify">This repository contains the assignments and code for the Practical Assignment of the Course SOW-MKI85 Machine Hearing 2023-2024.
+# Introduction to the Enrichment Assignments
+<p align = "justify">This repository contains the assignments and code for the Enrichment Assignments of the Course SOW-MKI85 Machine Hearing 2023-2024.
 
-<p align = "justify">This practical aims to provide you with a hands on experience with deep learning approaches for machine hearing. You will learn to pre-process audio, to extract relevant audio features, to train a ResNet-18 model on an environmental sound classification task and to evaluate the performance of the trained model.
+<p align = "justify">These assignments aim to provide you with a hands on experience with deep learning approaches for machine hearing. You will learn to pre-process audio, to extract relevant audio features, to train a ResNet-18 model on an environmental sound classification task and to evaluate the performance of the trained model.
 
-<p align = "justify">The practical consists of six sessions. Session 1 and Session 2 introduce the assignment, the dataset, relevant concepts, frameworks, libraries, and audio feature extraction. Session 3 to Session 6 cover data preprocessing, training the ResNet-18 model on different sets of features, and evaluating and visualizing model performance.
+<p align = "justify">The assignments consists of five sessions. Session 1 and Session 2 introduce the assignment, the dataset, relevant concepts, frameworks, libraries, and audio feature extraction. Session 3 and Session 4 cover data preprocessing, training the ResNet-18 model on different sets of features, and evaluating and visualizing model performance. SESSION 5 WIDER THEORY!!!
 
 ## Intended learning outcomes
-After successful completion of the practical assignments, you can...
+After successful completion of the enrichment assignments, you can...
 <br>
 •	Describe, extract and analyse relevant audio features for sound classification.
 <br>
@@ -15,17 +15,19 @@ After successful completion of the practical assignments, you can...
 •	Evaluate and compare model performance for a sound classification task using relevant performance metrics.
 <br>
 •	Visualize data and results in a meaningful, informative way. 
+<br> 
+•	ADD AN ILO REGARDING THE LAST EXERCISE
 
 # Materials
 ## Dataset
-<p align = "justify">The dataset that we are using in this practical is the Environmental Sound Classification 50 (ESC-50) dataset[1]. This dataset consists of sound clips of 5 second duration in five categories: “Natural soundscapes & Water sounds”, “Human, non-speech sounds”, “Interior/Domestic sounds”, “Exterior/Urban noises”. More information about the dataset can be found [here](https://github.com/karolpiczak/ESC-50).  
+<p align = "justify">The dataset that we are using for these assignments is the Environmental Sound Classification 50 (ESC-50) dataset[1]. This dataset consists of sound clips of 5 second duration in five categories: “Natural soundscapes & Water sounds”, “Human, non-speech sounds”, “Interior/Domestic sounds”, “Exterior/Urban noises”. More information about the dataset can be found [here](https://github.com/karolpiczak/ESC-50).  
 
 <p align = "justify">The link to the ESC-50 database and metafile is on Brightspace in 'Content' --> 'Practical' --> 'Dataset'.  
 
 ## The Resnet-18 model
-<p align = "justify">For this assignment, we make use of the ResNet-18 model [2]. ResNet models use skip connections to learn residual functions with respect to the input, rather than learning unreferenced functions as is the case in most neural networks. These skip connections mitigate the vanishing/exploding gradient problem that deep neural networks encounter, resulting in faster convergence and better performance. 
+<p align = "justify">For these assignments, we make use of the ResNet-18 model [2]. ResNet models use skip connections to learn residual functions with respect to the input, rather than learning unreferenced functions as is the case in most neural networks. These skip connections mitigate the vanishing/exploding gradient problem that deep neural networks encounter, resulting in faster convergence and better performance. 
 
-<p align = "justify">Here, we make use of the ResNet model with 18 layers. Although this relatively small ResNet performs on par with other state-of-the-art architectures, it has relatively low complexity and converges faster [2].
+<p align = "justify">Here, we make use of an implementation of the ResNet model with 18 layers. Although this relatively small ResNet performs on par with other state-of-the-art architectures, it has relatively low complexity and converges faster [2].
 
 ## Libraries, frameworks, platforms
 * **Pytorch:** The assignments use the open-source library [Pytorch](https://pytorch.org/) to implement the ResNet-18 model. 
