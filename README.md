@@ -1,7 +1,7 @@
 # Introduction to the Enrichment Assignments
 <p align = "justify">This repository contains the assignments and code for the Enrichment Assignments of the Course SOW-MKI85 Machine Hearing 2024-2025.
 
-<p align = "justify">These assignments aim to provide you with a hands on experience with deep learning approaches for machine hearing. You will learn to pre-process audio, to extract relevant audio features, to train a ResNet-18 model on an environmental sound classification task and to evaluate the performance of the trained model.
+<p align = "justify">These assignments aim to provide you with a hands-on experience with deep learning approaches for machine hearing. You will learn to pre-process audio, to extract relevant audio features, to train a ResNet-18 model on an environmental sound classification task and to evaluate the performance of the trained model.
 
 <p align = "justify">The assignments consists of five sessions. Session 1 and Session 2 introduce the assignment, the dataset, relevant concepts, frameworks, libraries, and audio feature extraction. Session 3 and Session 4 cover data preprocessing, training the ResNet-18 model on different sets of features, and evaluating and visualizing model performance. SESSION 5 WIDER THEORY!!!
 
