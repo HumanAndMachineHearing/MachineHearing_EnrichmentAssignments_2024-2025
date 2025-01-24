@@ -15,6 +15,6 @@
 <br>
 •	Address limitations of the current approach, e.g. in comparison to other papers. 
 <br>
-•	Implications for future research: Discuss at least two strategies/approaches for improving performance on environmental sound classification task.
+• Implications for future research: Discuss at least two strategies/approaches for improving performance on environmental sound classification task.
 <br> 
 •	Conclusion
