@@ -9,12 +9,12 @@
 ## Exercise 6.1:
 <p align = "justify">Write a discussion section for your report. Include the following:
 <br>
-•	Describe, extract and analyse relevant audio features for sound classification.
+•	Brief summary of the key results. 
 <br>
-•	Implement a ResNet-18 model using either a single audio feature or combinations of three features. 
+•	Interpret results: Compare performance with other papers performing (environmental) sound classification. 
 <br>
-•	Address the limitations of the current approach. 
+•	Address limitations of the current approach, e.g. in comparison to other papers. 
 <br>
-•	Implications for future research: Discuss strategies/approaches to improve performance on environmental sound classification task.
+•	Implications for future research: Discuss at least two strategies/approaches for improving performance on environmental sound classification task.
 <br> 
 •	Conclusion
