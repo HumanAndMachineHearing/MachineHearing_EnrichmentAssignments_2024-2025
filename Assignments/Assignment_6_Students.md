@@ -18,3 +18,5 @@
 • Implications for future research: Discuss at least two strategies/approaches for improving performance on such a task.
 <br> 
 •	Conclusion
+
+<p align = "justify">Maximum length of this section is one page. 
