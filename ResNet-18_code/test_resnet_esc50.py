@@ -82,10 +82,6 @@ evaluation_correct = (predictions == true_labels).sum().item()
 accuracy_evaluation = evaluation_correct
 
 print('evaluation on independent dataset complete, accuracy = ' + str(accuracy_evaluation) + '%')
-#print(predictions)
-#print(true_labels)
-# check whether key-value pairs match training key-value pairs
-#print(keys)
 
 # Save predictions and true labels for subsequent analysis
 predictions = predictions.cpu() # bring back to cpu for numpy
