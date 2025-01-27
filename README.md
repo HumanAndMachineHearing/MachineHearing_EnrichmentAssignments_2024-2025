@@ -10,7 +10,7 @@ After successful completion of the enrichment assignments, you can...
 <br>
 •	Describe, extract and analyse relevant audio features for sound classification.
 <br>
-•	Implement a ResNet-18 model using either various audio features.
+•	Implement and train a ResNet-18 model using various audio features.
 <br>
 •	Evaluate and compare model performance for a sound classification task using relevant performance metrics.
 <br>
