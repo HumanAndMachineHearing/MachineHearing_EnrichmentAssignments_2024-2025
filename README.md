@@ -22,7 +22,7 @@ After successful completion of the enrichment assignments, you can...
 ## Dataset
 <p align = "justify">The dataset that we are using for these assignments is the Environmental Sound Classification 50 (ESC-50) dataset[1]. This dataset consists of sound clips of 5 second duration in five categories: “Natural soundscapes & Water sounds”, “Human, non-speech sounds”, “Interior/Domestic sounds”, “Exterior/Urban noises”. More information about the dataset can be found [here](https://github.com/karolpiczak/ESC-50).  
 
-<p align = "justify">The link to the ESC-50 database and metafile is on Brightspace in 'Content' --> 'Practical' --> 'Dataset'.  
+<p align = "justify">The link to the ESC-50 database and metafile is on Brightspace in 'Content' --> 'Enrichment Assignments' --> 'Dataset'.  
 
 ## The Resnet-18 model
 <p align = "justify">For these assignments, we make use of the ResNet-18 model [2]. ResNet models use skip connections to learn residual functions with respect to the input, rather than learning unreferenced functions as is the case in most neural networks. These skip connections mitigate the vanishing/exploding gradient problem that deep neural networks encounter, resulting in faster convergence and better performance. 
