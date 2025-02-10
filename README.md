@@ -3,7 +3,7 @@
 
 <p align = "justify">These assignments aim to provide you with a hands-on experience with deep learning approaches for machine hearing. You will learn to pre-process audio, to extract relevant audio features, to train a ResNet-18 model on an environmental sound classification task and to evaluate the performance of the trained model.
 
-<p align = "justify">The assignments consists of five sessions. Session 1 and Session 2 introduce the assignment, the dataset, relevant concepts, frameworks, libraries, and audio feature extraction. Session 3 and Session 4 cover data preprocessing and training the ResNet-18 model on different sets of audio features, while Session 5 is focused on analyzing and visualizing model performance. To conclude, Session 6 is dedicated to placing your findings within a wider theoretical framework based on your newly acquired knowledge of AI for Audio.  
+<p align = "justify">The assignments consists of six sessions. Session 1 and Session 2 introduce the assignment, the dataset, relevant concepts, frameworks, libraries, and audio feature extraction. Session 3 and Session 4 cover data preprocessing and training the ResNet-18 model on different sets of audio features, while Session 5 is focused on analyzing and visualizing model performance. To conclude, Session 6 is dedicated to placing your findings within a wider theoretical framework based on your newly acquired knowledge of AI for Audio.  
 
 ## Intended learning outcomes
 After successful completion of the enrichment assignments, you can...
