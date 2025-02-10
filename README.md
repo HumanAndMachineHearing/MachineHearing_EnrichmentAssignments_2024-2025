@@ -36,7 +36,7 @@ After successful completion of the enrichment assignments, you can...
 *	**Colab:** You can work on the assingments using [Google Colab](https://colab.google/). Colab is a hosted Jupyter Notebook service. Use Google Drive for data storage. If you do not yet have an account, please sign up and create an account. 
 
 ## The assignments
-<p align = "justify">You can download assignments, clone the repository or open an assignment in Google Colab using the link at the top of the script. Assignments will be added at the latest on the evening before the practical session. In total, there will be six assignments.   
+<p align = "justify">You can download assignments, clone the repository or open an assignment in Google Colab using the link at the top of the script. In total, there will be six assignments.   
 
 # Report Enrichment Assignments
 <p align = "justify">The Enrichment Assignments are completed with a Report. The template for the report can be found here: https://www.overleaf.com/read/pcwnmvymvfxt#bfea93. 
