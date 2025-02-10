@@ -38,12 +38,8 @@ After successful completion of the enrichment assignments, you can...
 ## The assignments
 <p align = "justify">You can download assignments, clone the repository or open an assignment in Google Colab using the link at the top of the script. Assignments will be added at the latest on the evening before the practical session. In total, there will be six assignments.   
 
-# Practical report
-The Practical Assignments are completed with a Practical Report consisting of two parts:
-<br>
-* **Part 1:** Audio feature extraction; [template practical report part 1](https://www.overleaf.com/read/htdgvkcwjcdn#eaa6eb). 
-* **Part 2:** Sound classification using the Resnet-18 model; [template practical report part 2](https://www.overleaf.com/read/qdzdmzpnnqjb#45d1a7).
-
+# Report Enrichment Assignments
+<p align = "justify">The Enrichment Assignments are completed with a Report. The template for the report can be found here: https://www.overleaf.com/read/pcwnmvymvfxt#bfea93. 
 
 # References
 [1] Piczak, K. J. (2015, October). ESC: Dataset for environmental sound classification. In Proceedings of the 23rd ACM international conference on Multimedia (pp. 1015-1018).
